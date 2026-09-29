@@ -5,3 +5,9 @@ metadata:
   labels:
     environment: development
     project: xyz
+
+# kubectl create namespace xyz (or)
+# kubectl apply -f 01_Namespace.yaml
+# kubectl get namespaces
+# kubectl describe namespace xyz
+# kubectl delete namespace xyz
