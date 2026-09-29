@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: pod
+metadata:
+  name: xius-dev-pod
+  namespace: xius-dev
+  labels:
+    app: xius-dev-app
+spec:
+  containers:
+    - name: xius-dev-container
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+
+# kubectl apply -f K8S/pod.yaml
+# kubectl get pods -n xius-dev
+# kubectl describe pod xius-dev-pod -n xius-dev
+# kubectl delete pod xius-dev-pod -n xius-dev

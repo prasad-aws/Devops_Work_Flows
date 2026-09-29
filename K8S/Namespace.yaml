@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: xius-dev
+  labels:
+    name: xius-dev
+    environment: development
+    project: TuneTalk
+
+# kubectl apply -f K8S/Namespace.yaml
+# kubectl get namespaces
+# kubectl describe namespace xius-dev
+# kubectl delete namespace xius-dev

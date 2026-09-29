@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pod
+  namespace: xius-dev
+  labels:
+    app: test-app
+spec:
+  containers:
+    - name: test-container
+      image: nginx
+      resources:
+        requests:
+          memory: "64Mi" # 1/2 of a CPU core
+          cpu: "250m" # 1/2 of a CPU core
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      ports:
+        - containerPort: 80
+
+# kubectl apply -f Resource_utilization.yaml
+# kubectl get pods
+# kubectl top pods

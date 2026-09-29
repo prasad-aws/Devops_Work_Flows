@@ -1,0 +1,46 @@
+
+
+docker images > Shows all images
+(AMI = OS + System  Packages + App run time + App code + App libraries)
+
+Docker image = Bare minimum OS with minimal size + System  Packages + App run time + App code + App libraries
+will be in mbs
+
+Image is static, Server is running version of OS
+
+If you run a image you get a container (Running instance of a image)
+
+By default docker creates a docker group and only root user and users who are added in the docker group can execute the docker commands
+
+# Below command is to add user to docker group
+sudo usermod -aG docker ec2-user
+
+exit and re-login again to execute the commands fromec2-user
+
+# Docker commands we use on regular work
+
+docker ps                    > All running containers
+docker pull nginx            > Will pull the images from docker hub/Registery(As per your requirement)
+docker images                > Shows the images you pulled from docker hub
+docker create nginx          > Will create a conatiner from the image
+docker ps -a                 > Shows all the containers including start and stopped conatiners
+docker start (conatiner_ID)  > To start the stopped container
+docker stop (conatiner_ID)   > To stop the container
+docker rmi (Image ID)        > To remove the image
+docker rm (conatiner_ID)     > To remove the container
+docker run nginx             > (Will Pull the image + Will Create the Container + Will Start the Container)
+docker run -d nginx          > To run the conatiner with detached mode
+docker rm -f (conatiner_ID)  > To remove the running conmatiner forcefully
+
+FROM -> refer base OS
+RUN -> configure the image, install, create user, folder, etc.
+CMD -> command to start the container
+ENTRYPOINT -> command to start the container, but can't be overriden. used with CMD, CMD can supply default args. Users always can override default args
+LABEL -> adds metadata to the image. used to filter
+EXPOSE -> info about ports opened by container
+ENV -> environment variables, containers can use
+ARG -> build time variables. can be before FROM instruction to supply version to base OS. build variables can't be accessed inside container
+COPY/ADD -> copies the files from local to image. ADD can download file from internet. ADD can directly untar the file into the image
+USER -> default user to run the container
+WORKDIR -> working directory for the container/image
+ONBUILD -> force the users to follow ONBUILD instructions while using some image

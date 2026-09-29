@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: cluster.io/v1alpha5
+
+metadata: 
+   name: xius-dev
+   region: us-east-1
+managedNodeGroups:
+  - name: xius-dev-group
+    instanceType: ["m5.large","t3.small"]
+    desiredCapacity: 2 #By default this value is 3
+    spot: true
+
+# eksctl create cluster --config-file=eks.yaml
+# eksctl get cluster
+# eksctl delete cluster --name xius-dev
