@@ -6,8 +6,24 @@ metadata:
     environment: development
     project: xyz
 
-# kubectl create namespace xyz (or)
-# kubectl apply -f 01_Namespace.yaml
-# kubectl get namespaces
-# kubectl describe namespace xyz
-# kubectl delete namespace xyz
+
+# Validate the YAML
+kubectl apply --dry-run=client -f 01_namespace.yaml
+
+# Create the Namespace
+kubectl apply -f 01_namespace.yaml
+
+# Check the Namespace
+kubectl get namespaces
+
+# Check the specific Namespace
+kubectl get namespace xius-dev
+
+# Check Namespace with labels
+kubectl get namespace xius-dev --show-labels
+
+# Describe the Namespace
+kubectl describe namespace xius-dev
+
+# Check Namespace in YAML format
+kubectl get namespace xius-dev -o yaml
