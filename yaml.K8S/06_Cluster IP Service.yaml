@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  namespace: xius-dev
+spec:
+  type: ClusterIP
+  selector:
+    project: roboshop
+    component: frontend
+    environment: dev
+  ports:
+    - protocol: TCP
+      port: 80       # Service port
+      targetPort: 80 # Container port
+
+# Validate the YAML
+kubectl apply --dry-run=client -f 07_service_clusterip.yaml
+
+# Create the Service
+kubectl apply -f 07_service_clusterip.yaml
+
+# Check all Services
+kubectl get services -n xius-dev
+
+# Short form
+kubectl get svc -n xius-dev
+
+# Check the specific Service
+kubectl get svc nginx -n xius-dev
+
+# Check Service with more details
+kubectl get svc nginx -n xius-dev -o wide
+
+# Describe the Service
+kubectl describe svc nginx -n xius-dev
+
+# Check Service YAML
+kubectl get svc nginx -n xius-dev -o yaml
+
+# Check Service endpoints
+kubectl get endpoints nginx -n xius-dev
+
+# Check EndpointSlices
+kubectl get endpointslices -n xius-dev
+
+# Delete the Service
+kubectl delete svc nginx -n xius-dev
