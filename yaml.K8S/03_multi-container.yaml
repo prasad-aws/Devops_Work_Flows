@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multi-container
+  namespace: xius-dev
+  labels:
+    purpose: multi-container
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  - name: almalinux
+    image: almalinux:9
+    command: ["sleep", "1000"]
+
+# Validate the YAML
+kubectl apply --dry-run=client -f 03_multi_container.yaml
+
+# Create the Multi-Container Pod
+kubectl apply -f 03_multi_container.yaml
+
+# Check the Pod
+kubectl get pods -n xius-dev
+
+# Check the Pod with more details
+kubectl get pod multi-container -n xius-dev -o wide
+
+# Check both containers
+kubectl get pod multi-container -n xius-dev -o jsonpath='{.spec.containers[*].name}'
+
+# Describe the Pod
+kubectl describe pod multi-container -n xius-dev
+
+# Check nginx container logs
+kubectl logs multi-container -c nginx -n xius-dev
+
+# Check almalinux container logs
+kubectl logs multi-container -c almalinux -n xius-dev
+
+# Enter the nginx container
+kubectl exec -it multi-container -c nginx -n xius-dev -- /bin/bash
+
+# Enter the almalinux container
+kubectl exec -it multi-container -c almalinux -n xius-dev -- /bin/bash
+
+# Check Pod status
+kubectl get pod multi-container -n xius-dev
+
+# Delete the Pod
+kubectl delete pod multi-container -n xius-dev
