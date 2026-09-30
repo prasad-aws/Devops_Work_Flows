@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-loadbalancer
+  namespace: xius-dev
+spec:
+  type: LoadBalancer
+  selector:
+    project: roboshop
+    component: frontend
+    environment: dev
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+# Validate the YAML
+kubectl apply --dry-run=client -f 09_service_loadbalancer.yaml
+
+# Create the Service
+kubectl apply -f 09_service_loadbalancer.yaml
+
+# Check all Services
+kubectl get svc -n xius-dev
+
+# Check LoadBalancer Service
+kubectl get svc nginx-loadbalancer -n xius-dev
+
+# Watch for external address
+kubectl get svc nginx-loadbalancer -n xius-dev -w
+
+# Check Service with details
+kubectl get svc nginx-loadbalancer -n xius-dev -o wide
+
+# Describe the Service
+kubectl describe svc nginx-loadbalancer -n xius-dev
+
+# Check endpoints
+kubectl get endpoints nginx-loadbalancer -n xius-dev
+
+# Delete the Service
+kubectl delete svc nginx-loadbalancer -n xius-dev
