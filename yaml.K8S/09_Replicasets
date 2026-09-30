@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx
+  namespace: xius-dev
+  # These are ReplicaSet labels
+  labels:
+    purpose: Recharge
+    project: xius
+
+spec:
+  replicas: 10
+
+  selector:
+    # These labels are used to select Pods
+    matchLabels:
+      purpose: Recharge
+      project: xius
+
+  # Pod definition
+  template:
+    metadata:
+      labels:
+        purpose: Recharge
+        project: xius
+
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:trixie-perl
+
+# Validate the YAML
+kubectl apply --dry-run=client -f 11_replicaset.yaml
+
+# Create the ReplicaSet
+kubectl apply -f 11_replicaset.yaml
+
+# Check all ReplicaSets
+kubectl get replicasets -n xius-dev
+
+# Short form
+kubectl get rs -n xius-dev
+
+# Check the specific ReplicaSet
+kubectl get rs nginx -n xius-dev
+
+# Check ReplicaSet with more details
+kubectl get rs nginx -n xius-dev -o wide
+
+# Check the Pods created by ReplicaSet
+kubectl get pods -n xius-dev
+
+# Check Pods with labels
+kubectl get pods -n xius-dev --show-labels
+
+# Check ReplicaSet and Pods together
+kubectl get rs,pods -n xius-dev
+
+# Describe the ReplicaSet
+kubectl describe rs nginx -n xius-dev
+
+# Check ReplicaSet YAML
+kubectl get rs nginx -n xius-dev -o yaml
+
+# Check ReplicaSet events
+kubectl describe rs nginx -n xius-dev
+
+# Delete the ReplicaSet
+kubectl delete rs nginx -n xius-dev
