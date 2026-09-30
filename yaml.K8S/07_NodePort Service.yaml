@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-nodeport
+  namespace: xius-dev
+spec:
+  type: NodePort
+  selector:
+    project: roboshop
+    component: frontend
+    environment: dev
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30080
+
+# Validate the YAML
+kubectl apply --dry-run=client -f 08_service_nodeport.yaml
+
+# Create the Service
+kubectl apply -f 08_service_nodeport.yaml
+
+# Check all Services
+kubectl get svc -n xius-dev
+
+# Check the NodePort Service
+kubectl get svc nginx-nodeport -n xius-dev
+
+# Check Service with details
+kubectl get svc nginx-nodeport -n xius-dev -o wide
+
+# Describe the Service
+kubectl describe svc nginx-nodeport -n xius-dev
+
+# Check the NodePort
+kubectl get svc nginx-nodeport -n xius-dev \
+  -o jsonpath='{.spec.ports[0].nodePort}'
+
+# Check endpoints
+kubectl get endpoints nginx-nodeport -n xius-dev
+
+# Delete the Service
+kubectl delete svc nginx-nodeport -n xius-dev
