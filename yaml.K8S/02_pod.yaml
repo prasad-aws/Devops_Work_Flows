@@ -30,9 +30,3 @@ kubectl describe pod nginx -n xius-dev
 
 # Check Pod logs
 kubectl logs nginx -n xius-dev
-
-# Delete the Namespace
-kubectl delete namespace xius-dev
-
-# Verify deletion
-kubectl get namespaces
