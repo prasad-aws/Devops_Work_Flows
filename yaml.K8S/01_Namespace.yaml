@@ -27,3 +27,9 @@ kubectl describe namespace xius-dev
 
 # Check Namespace in YAML format
 kubectl get namespace xius-dev -o yaml
+
+# Delete the Namespace
+kubectl delete namespace xius-dev
+
+# Verify deletion
+kubectl get namespaces
