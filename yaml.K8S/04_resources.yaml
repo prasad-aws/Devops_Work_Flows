@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: resources-demo
+  namespace: xius-dev
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    resources:
+      # Soft limit - minimum resources requested
+      requests:
+        memory: "68Mi"
+        cpu: "100m" # 1/10th of a CPU
+
+      # Hard limit - maximum resources allowed
+      # Should be equal to or greater than requests
+      limits:
+        memory: "100Mi"
+        cpu: "120m"
+
+# Validate the YAML
+kubectl apply --dry-run=client -f 04_resources_demo.yaml
+
+# Create the Pod
+kubectl apply -f 04_resources_demo.yaml
+
+# Check the Pod
+kubectl get pods -n xius-dev
+
+# Check the Pod with more details
+kubectl get pod resources-demo -n xius-dev -o wide
+
+# Describe the Pod
+kubectl describe pod resources-demo -n xius-dev
+
+# Check CPU and Memory requests/limits
+kubectl get pod resources-demo -n xius-dev -o yaml
+
+# Check the container resource configuration
+kubectl get pod resources-demo -n xius-dev \
+  -o jsonpath='{.spec.containers[0].resources}'
+
+# Check Pod resource usage
+kubectl top pod resources-demo -n xius-dev
+
+# Check Pod resource usage with containers
+kubectl top pod resources-demo -n xius-dev --containers
+
+# Delete the Pod
+kubectl delete pod resources-demo -n xius-dev
